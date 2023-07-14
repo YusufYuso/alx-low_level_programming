@@ -1,0 +1,2 @@
+#!/bin/bash
+git add . && git commit -m "Adding File:$prinf $(ls -t | head -n1)" && git push origin main
