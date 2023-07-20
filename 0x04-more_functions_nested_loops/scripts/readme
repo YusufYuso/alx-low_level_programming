@@ -1,0 +1,2 @@
+#!/bin/bash
+echo -e "# This is $printf `basename "$PWD"` Directory." > README.md
