@@ -28,8 +28,7 @@ void getPassword(int len)
 }
 
 int main() 
-{
-	int len = 10; /* desired length of password */
-	getPassword(len);
+{ /* desired length of password */
+	getPassword(10);
 	return 0;
 }
