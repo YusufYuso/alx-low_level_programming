@@ -14,21 +14,22 @@ void getPassword(int len)
 	char possibleChars[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()";
 	char password[len+1];
 	
-	srand(time(0)); // seed for random number generation
-	for(int i = 0; i < len; i++) 
+	srand(time(0)); /* seed for random number generation */
+	int i;
+
+	for (i = 0; i < len; i++) 
 	{
 		int randomIndex = rand() % (sizeof(possibleChars) - 1);
 		password[i] = possibleChars[randomIndex];
 	}
 	
-	password[len] = '\0'; // null terminate the string
+	password[len] = '\0'; /* null terminate the string */
 	printf("%s\n", password);
 }
 
 int main() 
 {
-	int len = 10; // desired length of password
+	int len = 10; /* desired length of password */
 	getPassword(len);
 	return 0;
 }
-
