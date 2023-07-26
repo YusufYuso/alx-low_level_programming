@@ -9,26 +9,18 @@
  * 
  * Return: Always 0.
  */
-void getPassword(int len) 
+int main(void)
 {
-	char possibleChars[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()";
-	char password[len+1];
-	
-	srand(time(0)); /* seed for random number generation */
-	int i;
+	int sum;
+	char c;
 
-	for (i = 0; i < len; i++) 
+	srand(time(NULL));
+	while (sum <= 2645)
 	{
-		int randomIndex = rand() % (sizeof(possibleChars) - 1);
-		password[i] = possibleChars[randomIndex];
+		c = rand() % 128;
+		sum = sum + c;
+		putchar(c);
 	}
-	
-	password[len] = '\0'; /* null terminate the string */
-	printf("%s\n", password);
-}
-
-int main() 
-{ /* desired length of password */
-	getPassword(10);
-	return 0;
+	putchar(2772 - sum);
+	return (0);
 }
