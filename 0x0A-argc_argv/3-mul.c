@@ -10,11 +10,19 @@ int get_num(char *argv);
  */
 int get_num(char *argv)
 {
-	int i, num = 0;
+	int i;
+	unsigned int num = 0;
+	int sign = 1;
 
 	for (i = 0; argv[i] != '\0'; i++)
-		num = num * 10 + (argv[i] - '0');
-	return (num);
+	{
+		if (argv[i] == '-')
+			continue;
+		num = (num * 10) + (argv[i] - '0');
+	}
+	if (argv[0] == '-')
+		sign *= -1;
+	return (num * sign);
 }
 /**
  * main - a program that multiplies two numbers.
