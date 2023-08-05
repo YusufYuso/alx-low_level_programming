@@ -1,2 +1,2 @@
-# alx-low_level_programming
-ALX C programming Projects
+# alx-low_level_programming repository
+ALX C programming Projects & tasks answers.
