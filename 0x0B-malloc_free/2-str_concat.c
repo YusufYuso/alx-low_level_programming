@@ -1,5 +1,14 @@
 #include "main.h"
 
+/**
+ * str_concat - Concatenates two strings.
+ * @s1: The string to be concatenated upon.
+ * @s2: The string to be concatenated to s1.
+ *
+ * Return: If concatenation fails - NULL.
+ *         Otherwise - a pointer the newly-allocated space in memory
+ *                     containing the concatenated strings.
+ */
 char *str_concat(char *s1, char *s2)
 {
 	int len1 = 0;
@@ -38,6 +47,6 @@ char *str_concat(char *s1, char *s2)
 		i++;
 		len1++;
 	}
-
+	ptr[len1] = '\0';
 	return (ptr);
 }
