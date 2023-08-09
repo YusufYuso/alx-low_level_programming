@@ -48,6 +48,6 @@ char *str_concat(char *s1, char *s2)
 		len1++;
 	}
 
-	ptr[len] = '\0';
+	ptr[len + 1] = '\0';
 	return (ptr);
 }
