@@ -38,10 +38,10 @@ char *argstostr(int ac, char **av)
 	if (ac == 0 || av == NULL)
 		return (NULL);
 
-	for (; i < ac; i++)
+	for (; i < ac; i++, nc++)
 		nc += get_len(av[i]);
 
-	ptr = malloc(sizeof(char) * nc);
+	ptr = malloc(sizeof(char) * nc + 1);
 	if (ptr == NULL)
 		return (NULL);
 
