@@ -1,23 +1,22 @@
+#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 
-int _putchar(char c);
+void _puts(const char *str);
 int _isdigit(int c);
 int _strlen(char *s);
 char *big_mul(char *s1, char *s2);
 
 /**
- * _putchar - writes the character c to stdout
- * @c: The character to print
- *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ * _puts - Prints a string to stdout.
+ * @str: The string to be printed.
  */
-int _putchar(char c)
+void _puts(const char *str)
 {
-	return (write(1, &c, 1));
+	while (*str)
+		_putchar(*str++);
+
+	_putchar('\n');
 }
 
 /**
@@ -62,7 +61,7 @@ char *big_mul(char *s1, char *s2)
 	l2 = _strlen(s2);
 	r = malloc(a = x = l1 + l2);
 	if (!r)
-		printf("Error\n"), exit(98);
+		_puts("Error"), exit(98);
 	while (a--)
 		r[a] = 0;
 
@@ -71,7 +70,7 @@ char *big_mul(char *s1, char *s2)
 		if (!_isdigit(s1[l1]))
 		{
 			free(r);
-			printf("Error\n"), exit(98);
+			_puts("Error"), exit(98);
 		}
 		a = s1[l1] - '0';
 		c = 0;
@@ -81,7 +80,7 @@ char *big_mul(char *s1, char *s2)
 			if (!_isdigit(s2[l2]))
 			{
 				free(r);
-				printf("Error\n"), exit(98);
+				_puts("Error"), exit(98);
 			}
 			b = s2[l2] - '0';
 
@@ -109,7 +108,7 @@ int main(int argc, char **argv)
 	int a, c, x;
 
 	if (argc != 3)
-		printf("Error\n"), exit(98);
+		_puts("Error"), exit(98);
 
 	x = _strlen(argv[1]) + _strlen(argv[2]);
 	r = big_mul(argv[1], argv[2]);
