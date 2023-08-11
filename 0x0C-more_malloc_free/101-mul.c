@@ -104,27 +104,25 @@ char *big_mul(char *s1, char *s2)
  */
 int main(int argc, char **argv)
 {
-	char *r;
-	int a, c, x;
+	char *result;
+	int flag = 0, index = 0, len;
 
 	if (argc != 3)
 		_puts("Error"), exit(98);
 
-	x = _strlen(argv[1]) + _strlen(argv[2]);
-	r = big_mul(argv[1], argv[2]);
-	c = 0;
-	a = 0;
-	while (c < x)
+	len = _strlen(argv[1]) + _strlen(argv[2]);
+	result = big_mul(argv[1], argv[2]);
+	while (index < len)
 	{
-		if (r[c])
-			a = 1;
-		if (a)
-			_putchar(r[c] + '0');
-		c++;
+		if (result[index])
+			flag = 1;
+		if (flag)
+			_putchar(result[index] + '0');
+		index++;
 	}
-	if (!a)
+	if (!flag)
 		_putchar('0');
 	_putchar('\n');
-	free(r);
+	free(result);
 	return (0);
 }
