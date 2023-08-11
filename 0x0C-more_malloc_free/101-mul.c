@@ -54,45 +54,47 @@ int _strlen(char *s)
  */
 char *big_mul(char *s1, char *s2)
 {
-	char *r;
-	int l1, l2, a, b, c, x;
+	char *result;
+	int len, l1, l2, a, b, carry;
 
 	l1 = _strlen(s1);
 	l2 = _strlen(s2);
-	r = malloc(a = x = l1 + l2);
-	if (!r)
+	len = l1 + l2 + 1;
+	a = l1 + l2;
+	result = malloc(sizeof(int) * len);
+	if (!result)
 		_puts("Error"), exit(98);
 	while (a--)
-		r[a] = 0;
+		result[a] = 0;
 
-	for (l1--; l1 >= 0; l1--)
+	for (l1 -= 1; l1 >= 0; l1--)
 	{
 		if (!_isdigit(s1[l1]))
 		{
-			free(r);
+			free(result);
 			_puts("Error"), exit(98);
 		}
 		a = s1[l1] - '0';
-		c = 0;
+		carry = 0;
 
 		for (l2 = _strlen(s2) - 1; l2 >= 0; l2--)
 		{
 			if (!_isdigit(s2[l2]))
 			{
-				free(r);
+				free(result);
 				_puts("Error"), exit(98);
 			}
 			b = s2[l2] - '0';
 
-			c += r[l1 + l2 + 1] + (a * b);
-			r[l1 + l2 + 1] = c % 10;
+			carry += result[l1 + l2 + 1] + (a * b);
+			result[l1 + l2 + 1] = carry % 10;
 
-			c /= 10;
+			carry /= 10;
 		}
-		if (c)
-			r[l1 + l2 + 1] += c;
+		if (carry)
+			result[l1 + l2 + 1] += carry;
 	}
-	return (r);
+	return (result);
 }
 
 /**
