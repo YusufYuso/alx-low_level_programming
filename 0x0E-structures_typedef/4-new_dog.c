@@ -13,6 +13,7 @@ dog_t *new_dog(char *name, float age, char *owner);
 int _strlen(char *s)
 {
 	int l = 0;
+
 	while (*s++)
 		l++;
 	return (l);
@@ -29,6 +30,7 @@ int _strlen(char *s)
 char *_strcpy(char *d, char *s)
 {
 	int i = 0;
+
 	for (; s[i]; i++)
 		d[i] = s[i];
 	d[i] = '\0';
