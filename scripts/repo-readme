@@ -1,2 +1,0 @@
-#!/bin/bash
-echo -e "# This is $printf `basename "$PWD"` Repository.\nWhere you can find $printf `basename "$PWD"` Projects folders." > README.md
