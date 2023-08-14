@@ -1,4 +1,0 @@
-#!/bin/bash
-var=$(printf $(ls -t | head -n 1))
-chmod u+x $var
-git add . && git commit -m "Adding & Updating File: $var" && git push -u origin main

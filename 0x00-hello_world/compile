@@ -1,2 +1,0 @@
-#!/bin/bash
-chmod u+x $printf $(ls -t | head -n 1)
