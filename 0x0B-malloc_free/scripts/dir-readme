@@ -1,2 +1,0 @@
-#!/bin/bash
-echo -e "# This is $printf `basename "$PWD"` Directory.\nWhere you can find $printf `basename "$PWD"` all tasks solutions." > README.md

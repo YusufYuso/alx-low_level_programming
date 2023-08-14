@@ -1,2 +1,0 @@
-#!/bin/bash
-git add . && git commit -m "Adding File:$printf $(ls -t | head -n1)" && git push -u origin main
