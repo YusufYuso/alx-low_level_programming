@@ -9,8 +9,17 @@
  */
 int main(int argc, char **argv)
 {
-	int n1, n2;
+	int n1, n2, result;
 	char *op;
+	int (*fun)(int, int);
+
+	fun = get_op_func(argv[2]);
+
+	if (!fun)
+	{
+		printf("Error\n");
+		exit(99);
+	}
 
 	if (argc != 4)
 	{
@@ -31,7 +40,7 @@ int main(int argc, char **argv)
 		printf("Error\n");
 		exit(100);
 	}
-
-	printf("%d\n", get_op_func(op)(n1, n2));
+	result = fun(atoi(argv[1]), atoi(argv[3]));
+	printf("%d\n", result);
 	return (0);
 }
