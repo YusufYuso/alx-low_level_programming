@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 	n2 = atoi(argv[3]);
 	fun = get_op_func(op);
 
-	if (!fun)
+	if (op[1] != '\0' || fun == NULL)
 	{
 		printf("Error\n");
 		exit(99);
@@ -33,8 +33,8 @@ int main(int argc, char **argv)
 		printf("Error\n");
 		exit(100);
 	}
-
 	value = f(n1, n2);
 	printf("%d\n", value);
+
 	return (0);
 }
