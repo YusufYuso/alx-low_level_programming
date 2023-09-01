@@ -6,7 +6,8 @@
  *
  * Return: Always 0.
  */
-int main(void){
+int main(void)
+{
     unsigned int n;
 
     n = flip_bits(1024, 1);
