@@ -1,21 +1,21 @@
 #include "main.h"
 #include <elf.h>
 
-void print_magic(Elf64_Ehdr h);
-void print_class(Elf64_Ehdr h);
-void print_data(Elf64_Ehdr h);
-void print_version(Elf64_Ehdr h);
-void print_osabi(Elf64_Ehdr h);
-void print_osabi_more(Elf64_Ehdr h);
-void print_abiversion(Elf64_Ehdr h);
-void print_type(Elf64_Ehdr h);
-void print_entry(Elf64_Ehdr h);
+void _magic(Elf64_Ehdr h);
+void _class(Elf64_Ehdr h);
+void _data(Elf64_Ehdr h);
+void _version(Elf64_Ehdr h);
+void _osabi(Elf64_Ehdr h);
+void _osabi_more(Elf64_Ehdr h);
+void _abi_version(Elf64_Ehdr h);
+void _type(Elf64_Ehdr h);
+void _entry(Elf64_Ehdr h);
 
 /**
- * print_magic - prints ELF magic bytes
+ * _magic - prints ELF magic bytes
  * @h: the ELF header struct
  */
-void print_magic(Elf64_Ehdr h)
+void _magic(Elf64_Ehdr h)
 {
 	int i;
 
@@ -25,10 +25,10 @@ void print_magic(Elf64_Ehdr h)
 }
 
 /**
- * print_class - prints ELF class
+ * _class - prints ELF class
  * @h: the ELF header struct
  */
-void print_class(Elf64_Ehdr h)
+void _class(Elf64_Ehdr h)
 {
 	printf("  Class:                             ");
 	switch (h.e_ident[EI_CLASS])
@@ -47,10 +47,10 @@ void print_class(Elf64_Ehdr h)
 }
 
 /**
- * print_data - prints ELF data
+ * _data - prints ELF data
  * @h: the ELF header struct
  */
-void print_data(Elf64_Ehdr h)
+void _data(Elf64_Ehdr h)
 {
 	printf("  Data:                              ");
 	switch (h.e_ident[EI_DATA])
@@ -69,10 +69,10 @@ void print_data(Elf64_Ehdr h)
 }
 
 /**
- * print_version - prints ELF version
+ * _version - prints ELF version
  * @h: the ELF header struct
  */
-void print_version(Elf64_Ehdr h)
+void _version(Elf64_Ehdr h)
 {
 	printf("  Version:                           %d", h.e_ident[EI_VERSION]);
 	switch (h.e_ident[EI_VERSION])
@@ -89,10 +89,10 @@ void print_version(Elf64_Ehdr h)
 }
 
 /**
- * print_osabi - prints ELF osabi
+ * _osabi - prints ELF osabi
  * @h: the ELF header struct
  */
-void print_osabi(Elf64_Ehdr h)
+void _osabi(Elf64_Ehdr h)
 {
 	printf("  OS/ABI:                            ");
 	switch (h.e_ident[EI_OSABI])
@@ -125,7 +125,7 @@ void print_osabi(Elf64_Ehdr h)
 			printf("UNIX - TRU64");
 			break;
 		default:
-			print_osabi_more(h);
+			_osabi_more(h);
 			break;
 	}
 	printf("\n");
@@ -133,10 +133,10 @@ void print_osabi(Elf64_Ehdr h)
 
 
 /**
- * print_osabi_more - prints ELF osabi more
+ * _osabi_more - prints ELF osabi more
  * @h: the ELF header struct
  */
-void print_osabi_more(Elf64_Ehdr h)
+void _osabi_more(Elf64_Ehdr h)
 {
 	switch (h.e_ident[EI_OSABI])
 	{
@@ -159,20 +159,20 @@ void print_osabi_more(Elf64_Ehdr h)
 }
 
 /**
- * print_abiversion  - prints ELF ABI version
+ * _abi_version  - prints ELF ABI version
  * @h: the ELF header struct
  */
-void print_abiversion(Elf64_Ehdr h)
+void _abi_version(Elf64_Ehdr h)
 {
 	printf("  ABI Version:                       %d\n",
 		h.e_ident[EI_ABIVERSION]);
 }
 
 /**
- * print_type - prints the ELF type
+ * _type - prints the ELF type
  * @h: the ELF header struct
  */
-void print_type(Elf64_Ehdr h)
+void _type(Elf64_Ehdr h)
 {
 	char *p = (char *)&h.e_type;
 	int i = 0;
@@ -205,10 +205,10 @@ void print_type(Elf64_Ehdr h)
 }
 
 /**
- * print_entry - prints the ELF entry point address
+ * _entry - prints the ELF entry point address
  * @h: the ELF header struct
  */
-void print_entry(Elf64_Ehdr h)
+void _entry(Elf64_Ehdr h)
 {
 	int i = 0, len = 0;
 	unsigned char *p = (unsigned char *)&h.e_entry;
@@ -238,11 +238,15 @@ void print_entry(Elf64_Ehdr h)
 }
 
 /**
- * main - program
- * @ac: argument count
- * @av: argument vector
+ * main - Displays the information contained in the
+ *        ELF header at the start of an ELF file.
+ * @ac: The number of arguments supplied to the program.
+ * @av: An array of pointers to the arguments.
  *
- * Return: 1 on success 0 on failure
+ * Return: 0 on success.
+ *
+ * Description: If the file is not an ELF File or
+ *              the function fails - exit code 98.
  */
 int main(int ac, char **av)
 {
@@ -252,12 +256,15 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n"), exit(98);
+
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		dprintf(STDERR_FILENO, "Can't open file: %s\n", av[1]), exit(98);
+
 	b = read(fd, &h, sizeof(h));
 	if (b < 1 || b != sizeof(h))
 		dprintf(STDERR_FILENO, "Can't read from file: %s\n", av[1]), exit(98);
+
 	if (h.e_ident[0] == 0x7f && h.e_ident[1] == 'E' && h.e_ident[2] == 'L' &&
 			h.e_ident[3] == 'F')
 	{
@@ -266,15 +273,17 @@ int main(int ac, char **av)
 	else
 		dprintf(STDERR_FILENO, "Not ELF file: %s\n", av[1]), exit(98);
 
-	print_magic(h);
-	print_class(h);
-	print_data(h);
-	print_version(h);
-	print_osabi(h);
-	print_abiversion(h);
-	print_type(h);
-	print_entry(h);
+	_magic(h);
+	_class(h);
+	_data(h);
+	_version(h);
+	_osabi(h);
+	_abi_version(h);
+	_type(h);
+	_entry(h);
+
 	if (close(fd))
 		dprintf(STDERR_FILENO, "Error closing file descriptor: %d\n", fd), exit(98);
+
 	return (EXIT_SUCCESS);
 }
